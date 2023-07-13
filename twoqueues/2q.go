@@ -5,16 +5,16 @@ import (
 )
 
 type Cache struct {
-	maxBytes      int64
-	fifoBytes 	  int64
-	lruBytes     int64
-	fifoRatio    float32
-	lruRatio     float32
-	fifoList    *list.List
-	fifoCache map[string]*list.Element
-	lruList            *list.List
-	lruCache         map[string]*list.Element
-	OnEvicted     func(key string, value Value)
+	maxBytes    	int64
+	fifoBytes 	 	int64
+	lruBytes     	int64
+	fifoRatio    	float32
+	lruRatio     	float32
+	fifoList    	*list.List
+	fifoCache 		map[string]*list.Element
+	lruList     	*list.List
+	lruCache    	map[string]*list.Element
+	OnEvicted     	func(key string, value Value)
 }
 
 type entry struct {
@@ -29,14 +29,14 @@ type Value interface {
 // New is the constructor of lruCache
 func New(maxBytes int64, fifoRatio float32, lruRatio float32, onEvicted func(string, Value)) *Cache {
 	return &Cache{
-		maxBytes:      maxBytes,
-		fifoRatio: 	0.35,
+		maxBytes:		maxBytes,
+		fifoRatio: 		0.35,
 		lruRatio: 		0.65,
-		fifoList:    list.New(),
-		fifoCache: make(map[string]*list.Element),
-		lruList:            list.New(),
-		lruCache:         make(map[string]*list.Element),
-		OnEvicted:     onEvicted,
+		fifoList:    	list.New(),
+		fifoCache: 		make(map[string]*list.Element),
+		lruList:        list.New(),
+		lruCache:       make(map[string]*list.Element),
+		OnEvicted:     	onEvicted,
 	}
 }
 
@@ -97,8 +97,7 @@ func (c *Cache) Add(key string, value Value) {
 		kv.value = value
 		return
 	}
-	// otherwise
-	// add it to fifoList and fifo_lruCache
+	// otherwise, add it to fifoList and fifo_lruCache
 	ele := c.fifoList.PushBack(&entry{key, value})
 	c.fifoCache[key] = ele
 	c.fifoBytes -= int64(len(key)) + int64(value.Len())
