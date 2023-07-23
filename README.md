@@ -9,3 +9,6 @@
 4. 实现 HTTP 服务端，并创建 HTTP 客户端，实现多节点间的通信；
 5. 为解决缓存击穿问题，实现 singleflight，将并发请求合并成一个请求，以减少对下层服务的压力；
 6. 使用 protobuf 库，在传输前后对消息进行编解码，优化节点间通信的性能。
+   
+## 参考
+[https://github.com/geektutu/7days-golang](https://github.com/geektutu/7days-golang)
